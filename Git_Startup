@@ -1,0 +1,18 @@
+Installing Git using Yum 
+
+[root@irontux ~]# yum install git -y
+
+Updated:
+  git.x86_64 0:1.8.3.1-12.el7_4
+
+Dependency Package:
+  perl-Git.noarch 0:1.8.3.1-12.el7_4
+  
+[root@irontux ~]# git --version
+git version 1.8.3.1
+
+Configuring Git Repo: 
+
+[root@irontux ~]# git config --global user.name "root"
+[root@irontux ~]# git config --global user.email "root@localhost"
+
