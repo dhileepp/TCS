@@ -1,4 +1,8 @@
+Git Info:
+---------
+
 Installing Git using Yum 
+------------------------
 
 [root@irontux ~]# yum install git -y
 
@@ -12,6 +16,7 @@ Dependency Package:
 git version 1.8.3.1
 
 Configuring Git: 
+----------------
 
 [root@irontux ~]# git config --global user.name "root"
 [root@irontux ~]# git config --global user.email "root@localhost"
@@ -23,7 +28,35 @@ Configuring Git:
         email = root@localhost
 [root@irontux ~]#
 
+[root@irontux etc]# git config --list
+core.editor=/usr/bin/vim
+user.name=root
+user.email=root@localhost
+[root@irontux etc]#
+
+[root@irontux etc]# ls -lrt /etc/gitconfig
+-rw-r--r--. 1 root root 30 May  2 15:47 /etc/gitconfig
+[root@irontux etc]# cat /etc/gitconfig
+[core]
+        editor = /usr/bin/vim
+[root@irontux etc]#
+
+[root@irontux ~]# git config --global system.name "My GIT repo"
+
+[root@irontux ~]# cat .gitconfig
+[user]
+        name = root
+        email = root@localhost
+[system]
+        name = My GIT repo
+[root@irontux ~]# git config --list
+core.editor=/usr/bin/vim
+user.name=root
+user.email=root@localhost
+system.name=My GIT repo
+
 Git Options
+------------
 
 [root@irontux ~]# git --help
 usage: git [--version] [--help] [-c name=value]
@@ -58,6 +91,71 @@ The most commonly used git commands are:
 'git help -a' and 'git help -g' lists available subcommands and some
 concept guides. See 'git help <command>' or 'git help <concept>'
 to read about a specific subcommand or concept.
+
+Creating Repo:
+-------------
+
+[root@irontux ~]# mkdir gittest
+[root@irontux ~]# cd gittest/
+[root@irontux gittest]# ll
+total 0
+[root@irontux gittest]# git init
+Initialized empty Git repository in /root/gittest/.git/
+[root@irontux gittest]# ll
+total 0
+[root@irontux gittest]# ls -lart
+total 4
+dr-xr-x---. 9 root root 4096 Oct 14 21:23 ..
+drwxr-xr-x. 3 root root   18 Oct 14 21:23 .
+drwxr-xr-x. 7 root root  119 Oct 14 21:23 .git
+[root@irontux gittest]# cd .git/
+[root@irontux .git]# ll
+total 12
+drwxr-xr-x. 2 root root   6 Oct 14 21:23 branches
+-rw-r--r--. 1 root root  92 Oct 14 21:23 config
+-rw-r--r--. 1 root root  73 Oct 14 21:23 description
+-rw-r--r--. 1 root root  23 Oct 14 21:23 HEAD
+drwxr-xr-x. 2 root root 242 Oct 14 21:23 hooks
+drwxr-xr-x. 2 root root  21 Oct 14 21:23 info
+drwxr-xr-x. 4 root root  30 Oct 14 21:23 objects
+drwxr-xr-x. 4 root root  31 Oct 14 21:23 refs
+[root@irontux .git]#
+
+[root@irontux gittest]# git status
+# On branch master
+#
+# Initial commit
+#
+nothing to commit (create/copy files and use "git add" to track)
+[root@irontux gittest]#
+
+[root@irontux gittest]# echo "this is my first test file" > test.txt
+[root@irontux gittest]# git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       test.txt
+nothing added to commit but untracked files present (use "git add" to track)
+[root@irontux gittest]# git add test.txt
+[root@irontux gittest]# git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#       new file:   test.txt
+#
+[root@irontux gittest]# git commit test.txt
+[master (root-commit) 7c4fea6] this is my first test file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 test.txt
+[root@irontux gittest]#
 
 
 
