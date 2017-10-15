@@ -130,6 +130,7 @@ nothing to commit (create/copy files and use "git add" to track)
 [root@irontux gittest]#
 
 [root@irontux gittest]# echo "this is my first test file" > test.txt
+
 [root@irontux gittest]# git status
 # On branch master
 #
@@ -141,6 +142,7 @@ nothing to commit (create/copy files and use "git add" to track)
 #       test.txt
 nothing added to commit but untracked files present (use "git add" to track)
 [root@irontux gittest]# git add test.txt
+
 [root@irontux gittest]# git status
 # On branch master
 #
@@ -151,11 +153,99 @@ nothing added to commit but untracked files present (use "git add" to track)
 #
 #       new file:   test.txt
 #
+
 [root@irontux gittest]# git commit test.txt
 [master (root-commit) 7c4fea6] this is my first test file
  1 file changed, 1 insertion(+)
  create mode 100644 test.txt
 [root@irontux gittest]#
 
+Testing Remove options in GIT:
+-----------------------------
 
+[root@irontux ~]# mkdir source
+[root@irontux ~]# cd source/
+[root@irontux source]# ls
+[root@irontux source]# git init
+
+[root@irontux source]# cp /etc/hosts.allow
+[root@irontux source]# cp /etc/hosts.deny
+
+[root@irontux source]# git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       hosts.allow
+#       hosts.deny
+nothing added to commit but untracked files present (use "git add" to track)
+
+[root@irontux source]# git add hosts.allow hosts.deny
+[root@irontux source]# git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#       new file:   hosts.allow
+#       new file:   hosts.deny
+
+[root@irontux source]# ls -la
+total 12
+drwxr-xr-x.  3 root root   55 Oct 14 23:08 .
+dr-xr-x---. 10 root root 4096 Oct 14 23:06 ..
+drwxr-xr-x.  7 root root  132 Oct 14 23:08 .git
+-rw-r--r--.  1 root root  370 Oct 14 23:07 hosts.allow
+-rw-r--r--.  1 root root  460 Oct 14 23:07 hosts.deny
+
+[root@irontux source]# git commit -m "new files"
+[master (root-commit) 6888e6a] new files
+ 2 files changed, 23 insertions(+)
+ create mode 100644 hosts.allow
+ create mode 100644 hosts.deny
+
+[root@irontux source]# git status
+# On branch master
+nothing to commit, working directory clean
+
+[root@irontux source]# rm hosts.deny
+rm: remove regular file ‘hosts.deny’? y
+
+[root@irontux source]# git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add/rm <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       deleted:    hosts.deny
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+
+[root@irontux source]# git rm hosts.deny
+rm 'hosts.deny'
+
+[root@irontux source]# git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#       deleted:    hosts.deny
+#
+[root@irontux source]# git commit
+Aborting commit due to empty commit message.
+
+[root@irontux source]# git commit -m "test deletion"
+[master 5537f1d] test deletion
+ 1 file changed, 13 deletions(-)
+ delete mode 100644 hosts.deny
+
+[root@irontux source]# git status
+# On branch master
+nothing to commit, working directory clean
+[root@irontux source]#
 
